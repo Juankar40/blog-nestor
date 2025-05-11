@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicles of Maas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        body {
+            background-color: #f0e8f0;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(215, 204, 220, 0.7);
+            border-bottom: 1px solid #a090a0;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #68566e;
+            color: #68566e;
+            font-size: 16px;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav a {
+            color: #4a3c52;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        .main-title {
+            background: linear-gradient(to bottom, #d4bc6a, #a58e50);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 36px;
+            letter-spacing: 2px;
+            border-top: 4px solid #c0a958;
+            border-bottom: 4px solid #c0a958;
+        }
+        
+        .subtitle {
+            background: linear-gradient(to bottom, #b8a8c0, #8a7a92);
+            padding: 15px;
+            text-align: center;
+            color: #f5e8b6;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        
+        .carousel-container {
+            max-width: 800px;
+            margin: 30px auto;
+            position: relative;
+            height: 500px;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border: 4px solid #c0a958;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(30, 25, 35, 0.8);
+            color: #e0d0a0;
+            padding: 15px 20px;
+            border-radius: 5px;
+            max-width: 80%;
+            text-align: center;
+            font-size: 18px;
+            border: 2px solid #a89060;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        
+        .nav-button {
+            background-color: rgba(200, 180, 140, 0.7);
+            border: 2px solid #a89060;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: #483e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(200, 180, 140, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .blog-section {
+            background-color: #5d4e65;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-dropdown {
+            padding: 10px 15px;
+            border: 2px solid #c0a958;
+            border-radius: 5px;
+            background-color: white;
+            min-width: 150px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-dropdown:hover {
+            border-color: #8a6d2f;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 2px solid #c0a958;
+            border-radius: 5px;
+            width: 300px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #8a6d2f;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 24px;
+            color: #5d4e65;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            font-size: 20px;
+            color: #a03030;
+            background-color: #ffe0e0;
+            border-radius: 5px;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .book-card {
+            background: linear-gradient(to bottom, #d4bc6a, #a58e50);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border: 2px solid #8a6d2f;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid #8a6d2f;
+        }
+
+        .book-info {
+            padding: 15px;
+        }
+
+        .book-title {
+            font-size: 1.2em;
+            color: #2c1810;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .book-description {
+            color: #483e50;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #5d4e65;
+            color: #e0d0a0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more:hover {
+            background-color: #483e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">CHRONICLES OF MAAS</div>
+        <div class="nav">
+            <a href="#">Home</a> | 
+            <a href="#">Blog</a> | 
+            <a href="#">Login</a> | 
+            <a href="#">Register</a>
+        </div>
+    </div>
+    
+    <div class="main-title">CHRONICLES OF MAAS</div>
+    <div class="subtitle">Your Guide to Magical Realms and Epic Stories</div>
+    
+    <div class="carousel-container">
+        <div id="loading" class="loading">Loading books...</div>
+        <div id="error" class="error" style="display: none;">Error loading books. Please try again later.</div>
+        
+        <img class="carousel-image" src="" alt="Fantasy scene with character and castle" style="display: none;">
+        <div class="carousel-caption" style="display: none;">
+            Loading...
+        </div>
+        <div class="carousel-nav">
+            <a href="#" class="nav-button">&#10094;</a>
+            <a href="#" class="nav-button">&#10095;</a>
+        </div>
+    </div>
+    
+    <div class="blog-section">BLOG POST</div>
+    
+    <div class="filter-section">
+        <select class="filter-dropdown" id="sortDropdown">
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+            <option value="titleAsc">Title (A-Z)</option>
+            <option value="titleDesc">Title (Z-A)</option>
+        </select>
+        
+        <select class="filter-dropdown" id="tagDropdown">
+            <option value="all">All Tags</option>
+        </select>
+        
+        <input type="text" class="search-box" id="searchInput" placeholder="Search by title...">
+    </div>
+
+    <div class="book-grid" id="bookGrid"></div>
+
+    <script>
+        let books = [];
+        let currentIndex = 0;
+        let filteredBooks = [];
+        
+        const elements = {
+            loading: document.getElementById('loading'),
+            error: document.getElementById('error'),
+            carouselImage: document.querySelector('.carousel-image'),
+            carouselCaption: document.querySelector('.carousel-caption'),
+            prevButton: document.querySelector('.nav-button:first-child'),
+            nextButton: document.querySelector('.nav-button:last-child'),
+            sortDropdown: document.getElementById('sortDropdown'),
+            tagDropdown: document.getElementById('tagDropdown'),
+            searchInput: document.getElementById('searchInput'),
+            bookGrid: document.getElementById('bookGrid')
+        };
+
+        function parseBookBody(body) {
+            const bookInfo = {};
+            
+            if (!body) return bookInfo;
+            
+            const fields = body.split('|');
+            
+            fields.forEach(field => {
+                if (field.includes(':')) {
+                    const [key, value] = field.split(':');
+                    if (key && value) {
+                        bookInfo[key.trim()] = value.trim();
+                    }
+                }
+            });
+            
+            if (body.includes('synopsis:')) {
+                const synopsisMatch = body.match(/synopsis:(.*?)(?=\||$)/s);
+                if (synopsisMatch && synopsisMatch[1]) {
+                    bookInfo.synopsis = synopsisMatch[1].trim();
+                }
+            }
+            
+            return bookInfo;
+        }
+
+        function updateCarousel() {
+            if (books.length === 0) return;
+            
+            const book = books[currentIndex];
+            const bookInfo = parseBookBody(book.body);
+            
+            elements.carouselImage.src = book.media?.url || "https://via.placeholder.com/800x500?text=No+Image";
+            elements.carouselImage.alt = book.title;
+            
+            let captionText = book.title;
+            if (bookInfo.synopsis) {
+                captionText += ": " + bookInfo.synopsis;
+            } else if (bookInfo.author) {
+                captionText += " by " + bookInfo.author;
+            }
+            
+            elements.carouselCaption.textContent = captionText;
+            
+            elements.carouselImage.style.display = "block";
+            elements.carouselCaption.style.display = "block";
+        }
+
+        function updateBookGrid() {
+            elements.bookGrid.innerHTML = '';
+            
+            filteredBooks.forEach(book => {
+                const bookInfo = parseBookBody(book.body);
+                const card = document.createElement('div');
+                card.className = 'book-card';
+
+                console.log(book.media.url)
+                
+                card.innerHTML = `
+                    <img class="book-image" src="${book.media?.url}" alt="${book.title}">
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-description">
+                            ${bookInfo.synopsis ? bookInfo.synopsis : bookInfo.author ? `By ${bookInfo.author}` : book.tags.join(', ')}
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
+                `;
+                
+                elements.bookGrid.appendChild(card);
+            });
+        }
+
+        function filterAndSortBooks() {
+            const searchQuery = elements.searchInput.value.toLowerCase();
+            const selectedTag = elements.tagDropdown.value;
+            const sortOption = elements.sortDropdown.value;
+            
+            filteredBooks = books.filter(book => {
+                const matchesSearch = book.title.toLowerCase().includes(searchQuery);
+                const matchesTag = selectedTag === 'all' || book.tags.includes(selectedTag);
+                return matchesSearch && matchesTag;
+            });
+            
+            switch (sortOption) {
+                case 'latest':
+                    filteredBooks.sort((a, b) => new Date(b.created) - new Date(a.created));
+                    break;
+                case 'oldest':
+                    filteredBooks.sort((a, b) => new Date(a.created) - new Date(b.created));
+                    break;
+                case 'titleAsc':
+                    filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+                case 'titleDesc':
+                    filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+                    break;
+            }
+            
+            updateBookGrid();
+        }
+
+        async function loadBooks() {
+            try {
+                const response = await fetch('https://v2.api.noroff.dev/blog/posts/Nestor');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data && data.data && Array.isArray(data.data)) {
+                    books = data.data;
+                    filteredBooks = [...books];
+                    
+                    const allTags = new Set();
+                    books.forEach(book => {
+                        book.tags.forEach(tag => allTags.add(tag));
+                    });
+                    
+                    Array.from(allTags).sort().forEach(tag => {
+                        const option = document.createElement('option');
+                        option.value = tag;
+                        option.textContent = tag;
+                        elements.tagDropdown.appendChild(option);
+                    });
+                    
+                    elements.loading.style.display = "none";
+                    updateCarousel();
+                    updateBookGrid();
+                } else {
+                    throw new Error("Unexpected data format");
+                }
+            } catch (error) {
+                console.error("Error loading books:", error);
+                elements.loading.style.display = "none";
+                elements.error.style.display = "block";
+            }
+        }
+        
+        elements.prevButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (books.length === 0) return;
+            currentIndex = (currentIndex - 1 + books.length) % books.length;
+            updateCarousel();
+        });
+        
+        elements.nextButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (books.length === 0) return;
+            currentIndex = (currentIndex + 1) % books.length;
+            updateCarousel();
+        });
+        
+        elements.sortDropdown.addEventListener('change', filterAndSortBooks);
+        elements.tagDropdown.addEventListener('change', filterAndSortBooks);
+        elements.searchInput.addEventListener('input', filterAndSortBooks);
+        
+        loadBooks();
+    </script>
+</body>
+</html>
