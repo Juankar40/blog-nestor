@@ -16,31 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         bookGrid: document.getElementById('bookGrid')
     };
 
-    function parseBookBody(body) {
-        const bookInfo = {};
-
-        if (!body) return bookInfo;
-
-        const fields = body.split('|');
-
-        fields.forEach(field => {
-            if (field.includes(':')) {
-                const [key, value] = field.split(':');
-                if (key && value) {
-                    bookInfo[key.trim()] = value.trim();
-                }
-            }
-        });
-
-        if (body.includes('synopsis:')) {
-            const synopsisMatch = body.match(/synopsis:(.*?)(?=\||$)/s);
-            if (synopsisMatch && synopsisMatch[1]) {
-                bookInfo.synopsis = synopsisMatch[1].trim();
-            }
-        }
-
-        return bookInfo;
-    }
+    
 
     function updateCarousel() {
         if (books.length === 0) return;
@@ -81,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p class="book-description">
                         ${bookInfo.synopsis ? bookInfo.synopsis : bookInfo.author ? `By ${bookInfo.author}` : book.tags.join(', ')}
                     </p>
-                    <a href="#" class="read-more">READ MORE</a>
+                    <a href="book.html?id=${book.id}" class="read-more">READ MORE</a>
                 </div>
             `;
 

@@ -20,17 +20,8 @@
         
         .logo {
             width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #68566e;
-            color: #68566e;
-            font-size: 16px;
-            text-align: center;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
+            height: auto;
+
         }
         
         .nav {
