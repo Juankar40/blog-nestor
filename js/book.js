@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event){
-
+    let providedBook;
     const img = document.getElementById("book-image")
     const title = document.getElementById("book-title")
     const synopsis = document.getElementById("book-description")
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function(event){
     function loadBookDOM(book){
         const themes = separateThemes(book.themes)
 
-        img.src = book.image
+        img.src = providedBook.media.url    
         title.textContent = book.title
         synopsis.textContent = book.synopsis
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event){
     async function loadBook(){
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/Nestor/${id}`)
         const data = await response.json()
-        const providedBook = data.data
+        providedBook = data.data
         const book = parseBookBody(providedBook.body)
 
         loadBookDOM(book)
