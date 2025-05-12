@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault(); 
 
         const formData = new FormData(form);
-        let data = []
+        let data = [];
 
         formData.forEach((value, key) => {
             data.push(`${key}:${value}`)
@@ -20,10 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if(key === "image_url"){book.media.url = value}
             if(key === "image_alt"){book.media.alt = value}
             if(key === "tags"){book.tags.push(value)}
-
         });
 
-        const dataString = data.join("|")
+        const dataString = data.join("|");
         book.body = dataString;
 
         postRequest();
@@ -46,6 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const result = await response.json();
             console.log("Post successful:", result);
+
+            alert("¡Libro creado exitosamente!");
+
+            window.location.href = './index.html'; 
+
         } catch (error) {
             console.error("Error posting book:", error);
         }

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    // Objeto que se va a enviar/modificar
     let formBook = {
         title: "",
         body: "",
@@ -7,17 +6,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         media: {}
     };
 
-    // Declaración de variable para usar fuera de la función
     let providedBook;
 
-    // Obtener ID desde la URL
     const id = getQueryId();
 
-    // Cargar datos del libro y mostrarlos en el formulario
     const book = await loadBook();
     loadBookDOM(book);
 
-    // Función que hace la petición al backend
     async function loadBook() {
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/Nestor/${id}`);
         const data = await response.json();
@@ -25,7 +20,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return parseBookBody(providedBook.body);
     }
 
-    // Rellenar el formulario con los datos existentes del libro
     function loadBookDOM(book) {
         document.getElementById("title").value = book.title;
         document.getElementById("author").value = book.author;
@@ -46,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         event.preventDefault();
 
         const formData = new FormData(form);
-        formBook.tags = []; 
+        formBook.tags = [];
         let data = [];
 
         formData.forEach((value, key) => {
@@ -68,8 +62,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             },
             body: JSON.stringify(formBook)
         });
+        
         const result = await response.json();
         console.log("Respuesta del servidor:", result);
-        
+
+        if (response.ok) {
+            // Mostrar un alert de confirmación
+            alert("¡Actualización exitosa!");
+
+            // Redirigir al hacer clic en el OK del alert
+            window.location.href = './index.html'; // Redirigir a index.html
+        }
     });
 });
