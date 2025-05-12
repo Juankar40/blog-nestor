@@ -36,3 +36,13 @@ async function hashFileName(file) {
 
     return `${hashHex}.${ext}`;
 }
+
+
+function getQueryId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+function separateThemes(themes) {
+    return themes.split(',').map(theme => theme.trim());
+}

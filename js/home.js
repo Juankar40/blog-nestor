@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     let books = [];
     let currentIndex = 0;
     let filteredBooks = [];
@@ -152,4 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
     elements.searchInput.addEventListener('input', filterAndSortBooks);
 
     loadBooks();
+
+
+
 });

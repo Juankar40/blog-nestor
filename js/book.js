@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event){
-
+    const editFormBtn = document.getElementById("edit-form")
     const deleteBtn = document.getElementById("delete-book")
 
     let providedBook;
@@ -37,6 +37,10 @@ document.addEventListener("DOMContentLoaded", function(event){
         }
     });  
 
+    editFormBtn.addEventListener("click", function(event) {
+        window.location.href = `./editBook.html?id=${id}`
+    })
+
     function loadBookDOM(book){
         const themes = separateThemes(book.themes)
 
@@ -61,13 +65,8 @@ document.addEventListener("DOMContentLoaded", function(event){
         loadBookDOM(book)
     }
 
-    function separateThemes(themes) {
-        return themes.split(',').map(theme => theme.trim());
-    }
 
 
-    function getQueryId() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('id');
-    }
+
+
 })
