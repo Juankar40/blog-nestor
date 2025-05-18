@@ -54,10 +54,6 @@
                         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
                     </svg>
                 </button>
-                
-                <button class="action-button">
-                    Back To Blog
-                </button>
 
                 <button class="action-button" id="delete-book">
                     Delete Book
@@ -70,10 +66,19 @@
             </div>
         </div>
     </div>
-    
+
     <script src="./js/isLogged.js"></script>
     <script src="./js/functions.js"></script>
     <script src="./js/book.js"></script>
+    <script>
+        const accessToken = localStorage.getItem("accessToken");
+        const editBookBtn = document.getElementById("edit-form");
 
+        if (accessToken) {
+            if (editBookBtn) editBookBtn.style.display = "inline-block";
+        } else {
+            if (editBookBtn) editBookBtn.style.display = "none";
+        }
+    </script>
 </body>
 </html>
