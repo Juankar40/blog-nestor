@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const book = books[currentIndex];
         const bookInfo = parseBookBody(book.body);
-        console.log(bookInfo);
         elements.carouselImage.src = book.media.url;
         elements.carouselImage.alt = book.title;
 
@@ -48,8 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const bookInfo = parseBookBody(book.body);
             const card = document.createElement('div');
             card.className = 'book-card';
-
-            console.log(book.media.url);
 
             card.innerHTML = `
                 <img class="book-image" src="${book.media.url}" alt="${book.title}">

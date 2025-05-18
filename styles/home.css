@@ -244,3 +244,9 @@
         .read-more:hover {
             background-color: #483e50;
         }
+
+        #create-book-btn {
+    font-size: 18px;
+    padding: 12px 20px;
+    margin-top: 30px;
+}
